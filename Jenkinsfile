@@ -13,13 +13,13 @@ pipeline {
                     sh 'echo "Hello DevOps" > hello.txt'
                     
                     // Uploading file to S3
-                    s3Upload(file: 'hello.txt', bucket: 'myjenkinsbucket-1', path: '/')
+                    s3Upload(bucket: 'myjenkinsbucket-1', file: 'hello.txt', path: 'hello.txt')
                     
                     // Downloading file from S3
-                    s3Download(bucket: 'myjenkinsbucket-1', file: 'hello.txt', path: 'downloaded.txt')
+                    // s3Download(bucket: 'myjenkinsbucket-1', file: 'hello.txt', path: 'downloaded.txt')
                     
-                    // Displaying downloaded file content
-                    sh "cat downloaded.txt"
+                    // // Displaying downloaded file content
+                    // sh "cat downloaded.txt"
                 }
             }
         }
