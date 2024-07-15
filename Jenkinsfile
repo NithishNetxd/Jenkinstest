@@ -2,29 +2,25 @@ pipeline {
     agent any
     
     environment {
-        AWS_DEFAULT_REGION = 'us-east-2'
+        S3_BUCKET = 'myjenkinsbucket-1'
+        S3_REGION = 'us-east-2'
+        S3_FILE_PATH = 'hello.txt' // File to upload
     }
     
     stages {
-        stage("AWS S3 Operations") {
+        stage('Upload to S3') {
             steps {
                 script {
-                    // Assuming credentials are globally configured, no need to specify them here
-                    sh 'echo "Hello DevOps" > hello.txt'
-                    
-                    // Uploading file to S3
-                    s3Upload(bucket: 'myjenkinsbucket-1', file: 'hello.txt')
-                    
-                    // Optionally, you can specify the path if needed
-                    // s3Upload(bucket: 'myjenkinsbucket-1', file: 'hello.txt', path: 'path/in/s3')
-                    
-                    // Downloading file from S3 (example commented out)
-                    // s3Download(bucket: 'myjenkinsbucket-1', file: 'hello.txt', path: 'downloaded.txt')
-                    
-                    // Displaying downloaded file content (example commented out)
-                    // sh "cat downloaded.txt"
+                    echo "hello" >> hello.txt
+                    s3Upload(file: S3_FILE_PATH, bucket: S3_BUCKET)
                 }
             }
+        }
+    }
+    
+    post {
+        always {
+            // Clean up or additional actions after upload (if needed)
         }
     }
 }
