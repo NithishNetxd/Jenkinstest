@@ -11,16 +11,14 @@ pipeline {
         stage('Upload to S3') {
             steps {
                 script {
-                    echo "hello" >> hello.txt
-                    s3Upload(file: S3_FILE_PATH, bucket: S3_BUCKET)
+                    // Create or append content to hello.txt
+                    writeFile file: S3_FILE_PATH, text: 'hello\n'
+                    
+                    // Upload file to S3 bucket
+                    s3Upload(file: S3_FILE_PATH, bucket: S3_BUCKET, region: S3_REGION)
                 }
             }
         }
     }
     
-    post {
-        always {
-            // Clean up or additional actions after upload (if needed)
-        }
-    }
 }
