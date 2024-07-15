@@ -11,8 +11,8 @@ pipeline {
                 script {
                     // Assuming credentials are globally configured, no need to specify them here
                     sh 'echo "Hello DevOps" > hello.txt'
-                    s3Upload(bucket: 'myjenkinsbucket-1', file: 'hello.txt', path: 'hello.txt', workspace: true)
-                    s3Download(bucket: 'myjenkinsbucket-1', file: 'downloaded.txt', path: 'hello.txt', flatten: true)
+                    s3Upload(bucket: 'myjenkinsbucket-1', file: 'hello.txt', path: 'hello.txt')
+                    s3Download(bucket: 'myjenkinsbucket-1', file: 'downloaded.txt', path: 'hello.txt')
                     sh "cat downloaded.txt"
                 }
             }
