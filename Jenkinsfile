@@ -15,15 +15,17 @@ pipeline {
     post {
         success {
             script {
-            sh "zip -r Billpay_Connector.zip  * "
-            
-            withAWS(region: 'us-east-2', credentials: 'JenkinsS3') {
-                s3Upload(
-                    bucket: 'jenkinsbuildbuc',
-				    file: 'Billpay_Connector.zip',
-                    path: 'Billpay_Connector/'
-                )
-            }
+                def ZIP_FILENAME = "${JOB_NAME}_`date +%Y%m%d%H%M%S`.zip"
+                sh "echo $ZIP_FILENAME"
+                sh "zip -r $ZIP_FILENAME *"
+                
+                withAWS(region: 'us-east-2', credentials: 'JenkinsS3') {
+                    s3Upload(
+                        bucket: 'jenkinsbuildbuc',
+                        file: ZIP_FILENAME,
+                        path: 'Billpay_Connector/'
+                    )
+                }
             }
         }
     }
