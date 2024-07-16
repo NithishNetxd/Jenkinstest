@@ -5,10 +5,11 @@ pipeline {
         stage('Build') {
             steps {
                 script {
+                    def artifacts = [
+                        [bucket: 'jenkinstestbucket3', sourceFile: '**/*', selectedRegion: 'us-east-1']
+                    ]
                     s3Upload(
-                        entries: [
-                            [bucket: 'jenkinstestbucket3', sourceFile: '**/*', selectedRegion: 'us-east-1']
-                        ],
+                        artifacts: artifacts,
                         profileName: 'Jenkinstest'
                     )
                 }
@@ -16,6 +17,7 @@ pipeline {
         }
     }
 }
+
 
     // post {
     //     always {
