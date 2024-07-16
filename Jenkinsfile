@@ -12,14 +12,16 @@ pipeline {
 
     post {
         success {
-            stage('Upload to S3') {
-                steps {
-                    withAWS(region: 'us-east-1', credentials: 'awscredentials') {
-                        s3Upload(
-                            bucket: 'jenkinstestbucket3',
-                            file: 'hello.txt',
-                            path: ''
-                        )
+            script {
+                stage('Upload to S3') {
+                    steps {
+                        withAWS(region: 'us-east-1', credentials: 'awscredentials') {
+                            s3Upload(
+                                bucket: 'jenkinstestbucket3',
+                                file: 'hello.txt',
+                                path: ''
+                            )
+                        }
                     }
                 }
             }
