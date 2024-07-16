@@ -15,9 +15,7 @@ pipeline {
     post {
         success {
             script {
-            def ZIP_FILENAME = "${JOB_NAME}_`date +%Y%m%d%H%M%S`.zip"
-            sh 'touch main.txt'
-            sh "zip -r $ZIP_FILENAME * "
+            sh "zip -r Billpay_Connector.zip  * "
             
             withAWS(region: 'us-east-2', credentials: 'JenkinsS3') {
                 s3Upload(
