@@ -4,10 +4,18 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                s3Upload consoleLogLevel: 'INFO', dontSetBuildResultOnFailure: false, dontWaitForConcurrentBuildCompletion: false, entries: [[bucket: 'jenkinstestbucket3', excludedFile: '', flatten: false, gzipFiles: false, keepForever: false, managedArtifacts: false, noUploadOnFailure: false, selectedRegion: 'us-east-1', showDirectlyInBrowser: false, sourceFile: '**/*', storageClass: 'STANDARD', uploadFromSlave: false, useServerSideEncryption: false]], pluginFailureResultConstraint: 'FAILURE', profileName: 'Jenkinstest', userMetadata: []
+                script {
+                    s3Upload(
+                        entries: [
+                            [bucket: 'jenkinstestbucket3', sourceFile: '**/*', selectedRegion: 'us-east-1']
+                        ],
+                        profileName: 'Jenkinstest'
+                    )
+                }
             }
         }
     }
+}
 
     // post {
     //     always {
@@ -23,5 +31,5 @@ pipeline {
     //         }
     //     }
     // }   
-}
+
 
