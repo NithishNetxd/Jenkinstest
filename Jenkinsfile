@@ -15,9 +15,9 @@ pipeline {
     post {
         always {
             script {
-                withAWS(region: 'us-east-1', credentials: 'awscredentials') {
+                withAWS(region: 'us-east-2', credentials: 'NetXD-Production-Build') {
                     s3Upload(
-                        bucket: 'jenkinstestbucket3',
+                        bucket: 'jenkinsbuildbuc',
                         file: 'hello.txt',
                         path: ''
                     )
