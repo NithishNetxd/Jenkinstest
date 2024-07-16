@@ -11,8 +11,9 @@ pipeline {
                         bucket: 'jenkinstestbucket3',
                         file: 'hello.txt',
                         path: '',
-                        profileName: 'Jenkinstest'
+                        profile: 'Jenkinstest'
                      )
+                     
                 }
             }
         }
