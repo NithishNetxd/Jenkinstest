@@ -11,7 +11,7 @@ pipeline {
 
         stage('Upload to S3') {
             steps {
-                withAWS(credentials: 'awscredentials') {
+                withAWS(region: 'us-east-1',credentials: 'awscredentials') {
                     s3Upload(
                         bucket: 'jenkinstestbucket3',
                         file: 'hello.txt',
