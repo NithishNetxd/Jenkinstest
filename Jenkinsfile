@@ -15,7 +15,7 @@ pipeline {
     post {
         success {
             script {
-                def ZIP_FILENAME = "${JOB_NAME}_`date +%Y%m%d%H%M%S`.zip"
+                def ZIP_FILENAME = "${JOB_NAME}_${env.BUILD_ID}.zip" // Using BUILD_ID for timestamped uniqueness
                 sh "echo $ZIP_FILENAME"
                 sh "zip -r $ZIP_FILENAME *"
                 
