@@ -1,29 +1,13 @@
-stages {
+pipeline {
+    agent any
+
+    stages {
         stage('Build') {
             steps {
-                script {
-                    withAWS(region: 'us-east-1', profile: 'Jenkinstest') {
-                        s3Upload(
-                            bucket: 'jenkinstestbucket3',
-                            entries: [
-                                [$class: 'hudson.plugins.s3.Entry',
-                                 sourceFile: '**/*',
-                                 selectedRegion: 'us-east-1',
-                                 storageClass: 'STANDARD',
-                                 uploadFromSlave: false,
-                                 useServerSideEncryption: false,
-                                 flatten: false,
-                                 gzipFiles: false,
-                                 keepForever: false,
-                                 showDirectlyInBrowser: false]
-                            ]
-                        )
-                    }
-                }
+                s3Upload consoleLogLevel: 'INFO', dontSetBuildResultOnFailure: false, dontWaitForConcurrentBuildCompletion: false, entries: [[bucket: 'jenkinstestbucket3', excludedFile: '', flatten: false, gzipFiles: false, keepForever: false, managed Artifacts: false, noUploadOnFailure: false, selectedRegion: 'us-east-1', showDirectlyInBrowser: false, sourceFile: '**/*', storageClass: 'STANDARD'uploadFromSlave: false, useServerSide Encryption: false]], pluginFailureResultConstraint: 'FAILURE', profileName: 'Jenkinstest', userMetadata: []
             }
         }
     }
-    
 
     // post {
     //     always {
@@ -39,5 +23,5 @@ stages {
     //         }
     //     }
     // }   
-// }
+}
 
