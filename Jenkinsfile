@@ -17,14 +17,13 @@ pipeline {
         stage('Upload to S3') {
             steps {
                 script {
-                    // Upload files to S3
+                    // Upload a single file to S3
                     s3Upload(
-                        bucket: 'jenkinstestbucket3', 
-                        file: 'hello.txt', 
-                        profileName: env.PROFILE_NAME,
+                        bucket: 'jenkinstestbucket3',
+                        file: 'hello.txt',
                         path: '', // S3 path where you want to upload the file
-                        region: 'us-east-1', // Replace with your AWS region
-                        includePathPattern: '**/*'
+                        profileName: env.PROFILE_NAME,
+                        region: 'us-east-1' // Replace with your AWS region
                     )
                 }
             }
