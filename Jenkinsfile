@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define the AWS profile to use
-        AWS_PROFILE = 'Upload Build to S3' 
+        PROFILE_NAME = 'Upload Build to S3'
     }
 
     stages {
@@ -24,7 +24,7 @@ pipeline {
 
                     // Upload files to S3
                     s3Upload(
-                        profileName: AWS_PROFILE,
+                        profileName: env.PROFILE_NAME,
                         entries: files,
                         selectedRegion: 'us-east-2', // Replace with your AWS region
                         noUploadOnFailure: false,
