@@ -4,31 +4,26 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'echo "hello" >> hello1.txt'
-                echo 'Building...'
+                script {
+                    sh 'echo "hello" >> hello.txt'
+                    echo 'Building...'
+                }
             }
         }
     }
 
     post {
-        success {
-            script {
-                stage('Upload to S3') {
-                    steps {
-                        withAWS(region: 'us-east-1', credentials: 'awscredentials') {
-                            s3Upload(
-                                bucket: 'jenkinstestbucket3',
-                                file: 'hello1.txt',
-                                path: ''
-                            )
-                        }
-                    }
-                }
-            }
-        }
-
         always {
-            echo 'Cleaning up...'
+            script {
+                withAWS(region: 'us-east-1', credentials: 'awscredentials') {
+                    s3Upload(
+                        bucket: 'jenkinstestbucket3',
+                        file: 'hello.txt',
+                        path: ''
+                    )
+                }
+                echo 'Cleaning up...'
+            }
         }
     }
 }
