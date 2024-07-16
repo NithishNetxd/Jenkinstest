@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'echo "hello" >> hello.txt'
+                sh 'echo "hello" >> hello1.txt'
                 echo 'Building...'
             }
         }
@@ -18,7 +18,7 @@ pipeline {
                         withAWS(region: 'us-east-1', credentials: 'awscredentials') {
                             s3Upload(
                                 bucket: 'jenkinstestbucket3',
-                                file: 'hello.txt',
+                                file: 'hello1.txt',
                                 path: ''
                             )
                         }
