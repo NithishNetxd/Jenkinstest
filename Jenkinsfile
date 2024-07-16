@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         // Define the AWS profile to use
-        PROFILE_NAME = 'Upload Build to S3'
+        PROFILE_NAME = 'Jenkinstest'
     }
 
     stages {
@@ -19,14 +19,14 @@ pipeline {
                 script {
                     // Define the file(s) to upload and the destination bucket
                     def files = [
-                        [bucket: 'myjenkinsbucket-1', sourceFile: 'hello.txt', excludedFile: '', storageClass: 'STANDARD']
+                        [bucket: 'jenkinstestbucket3', sourceFile: 'hello.txt', excludedFile: '', storageClass: 'STANDARD']
                     ]
 
                     // Upload files to S3
                     s3Upload(
                         profileName: env.PROFILE_NAME,
                         entries: files,
-                        selectedRegion: 'us-east-2', // Replace with your AWS region
+                        selectedRegion: 'us-east-1', // Replace with your AWS region
                         noUploadOnFailure: false,
                         uploadFromSlave: false,
                         managedArtifacts: false,
