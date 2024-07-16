@@ -20,7 +20,7 @@ pipeline {
             withAWS(region: 'us-east-2', credentials: 'JenkinsS3') {
                 s3Upload(
                     bucket: 'jenkinsbuildbuc',
-				    file: ZIP_FILENAME,
+				    file: 'Billpay_Connector.zip',
                     path: 'Billpay_Connector/'
                 )
             }
