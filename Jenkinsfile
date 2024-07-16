@@ -17,26 +17,14 @@ pipeline {
         stage('Upload to S3') {
             steps {
                 script {
-                    // Define the file(s) to upload and the destination bucket
-                    def files = [
-                        [bucket: 'jenkinstestbucket3', sourceFile: 'hello.txt', excludedFile: '', storageClass: 'STANDARD']
-                    ]
-
                     // Upload files to S3
                     s3Upload(
+                        bucket: 'jenkinstestbucket3', 
+                        file: 'hello.txt', 
                         profileName: env.PROFILE_NAME,
-                        entries: files,
-                        selectedRegion: 'us-east-1', // Replace with your AWS region
-                        noUploadOnFailure: false,
-                        uploadFromSlave: false,
-                        managedArtifacts: false,
-                        useServerSideEncryption: true,
-                        flatten: true,
-                        gzipFiles: false,
-                        keepForever: false,
-                        showDirectlyInBrowser: false,
-                        dontWaitForConcurrentBuildCompletion: false,
-                        consoleLogLevel: 'INFO'
+                        path: '', // S3 path where you want to upload the file
+                        region: 'us-east-1', // Replace with your AWS region
+                        includePathPattern: '**/*'
                     )
                 }
             }
