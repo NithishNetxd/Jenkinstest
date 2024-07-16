@@ -4,21 +4,11 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                script {
-                    def artifacts = [
-                        [bucket: 'jenkinstestbucket3', sourceFile: '**/*', selectedRegion: 'us-east-1']
-                    ]
-                    s3Upload(
-                        artifacts: artifacts,
-                        profileName: 'Jenkinstest'
-                    )
-                }
+                s3Upload consoleLogLevel: 'INFO', dontSetBuildResultOnFailure: false, dontWaitForConcurrentBuildCompletion: false, entries: [[bucket: 'jenkinstestbucket3', excludedFile: '', flatten: false, gzipFiles: false, keepForever: false, managedArtifacts: false, noUploadOnFailure: false, selectedRegion: 'us-east-1', showDirectlyInBrowser: false, sourceFile: '**/*', storageClass: 'STANDARD', uploadFromSlave: false, useServerSideEncryption: false]], pluginFailureResultConstraint: 'FAILURE', profileName: 'Jenkinstest', userMetadata: []
             }
         }
     }
 }
-
-
     // post {
     //     always {
     //         script {
