@@ -4,10 +4,41 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                s3Upload consoleLogLevel: 'INFO', dontSetBuildResultOnFailure: false, dontWaitForConcurrentBuildCompletion: false, entries: [[bucket: 'jenkinstestbucket3', excludedFile: '', flatten: false, gzipFiles: false, keepForever: false, managed Artifacts: false, noUploadOnFailure: false, selectedRegion: 'us-east-1', showDirectlyInBrowser: false, sourceFile: '**/*', storageClass: 'STANDARD'uploadFromSlave: false, useServerSide Encryption: false]], pluginFailureResultConstraint: 'FAILURE', profileName: 'Jenkinstest', userMetadata: []
+                script {
+                    s3Upload(
+                        profileName: 'Jenkinstest',
+                        entries: [
+                            [
+                                bucket: 'jenkinstestbucket3',
+                                sourceFile: '**/*',
+                                selectedRegion: 'us-east-1',
+                                storageClass: 'STANDARD',
+                                uploadFromSlave: false,
+                                useServerSideEncryption: false,
+                                flatten: false,
+                                gzipFiles: false,
+                                keepForever: false,
+                                showDirectlyInBrowser: false
+                            ]
+                        ],
+                        userMetadata: [
+                            [
+                                key: 'BuildNumber',
+                                value: env.BUILD_NUMBER
+                            ]
+                        ],
+                        dontWaitForConcurrentBuildCompletion: false,
+                        consoleLogLevel: 'INFO',
+                        pluginFailureResultConstraint: 'FAILURE',
+                        dontSetBuildResultOnFailure: false
+                    )
+                }
             }
         }
     }
+}
+
+}
 
     // post {
     //     always {
@@ -23,5 +54,5 @@ pipeline {
     //         }
     //     }
     // }   
-}
+// }
 
