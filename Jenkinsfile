@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        // Define the AWS profile to use
-        PROFILE_NAME = 'Jenkinstest'
-    }
-
     stages {
         stage('Build') {
             steps {
@@ -22,8 +17,7 @@ pipeline {
                         bucket: 'jenkinstestbucket3',
                         file: 'hello.txt',
                         path: '', // S3 path where you want to upload the file
-                        profileName: env.PROFILE_NAME,
-                        region: 'us-east-1' // Replace with your AWS region
+                        // Remove profileName and region parameters as credentials are managed in the system configuration
                     )
                 }
             }
